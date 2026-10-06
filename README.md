@@ -1,3 +1,15 @@
+# WanZi Family / 丸子定制版本
+
+Windows customization of [PvZ-Portable](https://github.com/wszqkzqk/PvZ-Portable), based on upstream commit `848b1dddbe82a5976ee6005992b51bb8fa79b00c`.
+
+- Custom startup splash: **WanZi Family**; menu and window identity: **丸子定制版本**.
+- Windows build and launch scripts: `scripts/windows/`; launch with `Start-Game.cmd`.
+- Setup and validation: [中文开发说明](DEVELOPMENT.zh-CN.md), [验收清单](docs/ACCEPTANCE.zh-CN.md).
+- Original game resources, saves and local toolchains are excluded. Supply your own GOTY resources in `resources/`, and copy `config/local.example.json` to `config/local.json` before launching.
+- The proposed progression mode has **not yet been implemented**.
+
+Upstream documentation and license attribution follow below.
+
 # PvZ-Portable
 
 <div align="center">

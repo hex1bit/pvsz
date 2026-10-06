@@ -33,6 +33,7 @@
 #include "../ToolTipWidget.h"
 #include "../System/SaveGame.h"
 #include "../../GameConstants.h"
+#include "../../EditionBranding.h"
 #include "../System/PlayerInfo.h"
 #include "../System/ProfileMgr.h"
 #include "../System/TypingCheck.h"
@@ -696,6 +697,7 @@ void GameSelector::DrawOverlay(Graphics* g)
 			aTrophyParticle->Draw(g);
 	}
 
+	EditionBranding::DrawBadge(g, 245, 540, 270);
 	mToolTip->Draw(g);
 }
 

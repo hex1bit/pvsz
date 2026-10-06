@@ -33,6 +33,7 @@
 #include "../../PvzpLib/PvzpDebug.h"
 #include "../../PvzpLib/Reanimator.h"
 #include "../../GameConstants.h"
+#include "../../EditionBranding.h"
 #include "../System/Music.h"
 #include <algorithm>
 
@@ -119,7 +120,7 @@ void TitleScreen::Draw(Graphics* g)
 		}
 		g->SetColorizeImages(true);
 		g->SetColor(Color(255, 255, 255, anAlpha));
-		g->DrawImage(IMAGE_POPCAP_LOGO, (mWidth - IMAGE_POPCAP_LOGO->mWidth) / 2, (mHeight - IMAGE_POPCAP_LOGO->mHeight) / 2);
+		EditionBranding::DrawSplash(g, mWidth, mHeight, anAlpha);
 		g->SetColorizeImages(false);
 
 		return;
@@ -136,7 +137,7 @@ void TitleScreen::Draw(Graphics* g)
 		{
 			anAlpha = PvzpAnimateCurve(mTitleStateDuration, mTitleStateDuration - 35, mTitleStateCounter, 0, 255, PvzpCurves::CURVE_LINEAR);
 			g->SetColor(Color(255, 255, 255, 255 - anAlpha));
-			g->DrawImage(IMAGE_POPCAP_LOGO, (mWidth - IMAGE_POPCAP_LOGO->mWidth) / 2, (mHeight - IMAGE_POPCAP_LOGO->mHeight) / 2);
+			EditionBranding::DrawSplash(g, mWidth, mHeight, 255 - anAlpha);
 		}
 		else
 		{
@@ -207,6 +208,8 @@ void TitleScreen::Draw(Graphics* g)
 	{
 		aReanim->Draw(g);
 	}
+
+	EditionBranding::DrawBadge(g, 568, 170, 212);
 }
 
 void TitleScreen::Update()

@@ -456,3 +456,11 @@ build-*/
 
 # Game recordings
 *.dmo
+
+# Local Windows development environment and user-owned assets
+/.tools/
+/dist/
+/runtime/
+/resources/
+/config/local.json
+/docs/*.local.json

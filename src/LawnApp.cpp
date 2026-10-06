@@ -32,6 +32,7 @@
 #include "Lawn/Cutscene.h"
 #include "GameConstants.h"
 #include "ProjectVersion.h"
+#include "EditionBranding.h"
 #include "Lawn/Challenge.h"
 #include "Lawn/ZenGarden.h"
 #include "PvzpLib/Trail.h"
@@ -170,6 +171,7 @@ LawnApp::LawnApp()
 
 LawnApp::~LawnApp()
 {
+	EditionBranding::ReleaseImages();
 	while (!mDialogMap.empty())
 	{
 		KillDialog(mDialogMap.begin()->first);
@@ -1778,6 +1780,8 @@ void LawnApp::ConfirmQuit()
 void LawnApp::PreDisplayHook()
 {
 	SexyApp::PreDisplayHook();
+	// Set this after partner properties have loaded so they cannot replace it.
+	mTitle = EditionBranding::WindowTitle();
 }
 
 
