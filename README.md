@@ -125,7 +125,9 @@ For this customized fork, run [Build iOS](https://github.com/hex1bit/pvsz/action
 
 #### Importing Game Resources
 
-The app's Documents folder is exposed via device file sharing and the iOS Files app (`UIFileSharingEnabled`). Place your own `main.pak` directly into the app's Documents directory (shown as "WanZi Family"). External `properties/` files are needed only if they are absent from your PAK. Original game resources are not included in the IPA.
+To make an IPA with your local GOTY resources, run `python scripts/ios/Bundle-Resources.py` after downloading the latest unsigned build. The game reads bundled `main.pak` directly; saves remain in Documents. The GitHub artifact contains only the program, and resources are added locally before signing.
+
+For an IPA without bundled resources, place your own `main.pak` directly into the app's Documents directory (shown as "WanZi Family" in Files / device file sharing). External `properties/` files are needed only if they are absent from your PAK.
 
 #### Notes
 

@@ -187,16 +187,20 @@ SexyAppBase::SexyAppBase()
 		mResourceDir = "";
 	}
 #elif defined(__IPHONEOS__)
-	// iOS: use Documents directory (visible in Files app via UIFileSharingEnabled)
+	// Bundled resources are read-only; saves remain in Documents (see Init).
 	{
+		char* aBundlePath = SDL_GetBasePath();
+		if (aBundlePath)
+		{
+			std::error_code aError;
+			if (std::filesystem::is_regular_file(std::filesystem::path(aBundlePath) / "main.pak", aError))
+				mResourceDir = aBundlePath;
+			SDL_free(aBundlePath);
+		}
 		const char* aHome = std::getenv("HOME");
-		if (aHome != nullptr && aHome[0] != '\0')
+		if (mResourceDir.empty() && aHome != nullptr && aHome[0] != '\0')
 		{
 			mResourceDir = (std::filesystem::path(aHome) / "Documents").generic_string() + "/";
-		}
-		else
-		{
-			mResourceDir = "";
 		}
 	}
 #elif defined(__EMSCRIPTEN__)
@@ -3022,21 +3026,22 @@ void SexyAppBase::ShowResourceError(bool doExit)
 {
 	const std::string& aError = mResourceManager->GetErrorText();
 #if defined(__IPHONEOS__)
-	// Documents folder is only shown in the Files app / iTunes once it contains a file
-	const std::filesystem::path aResourceDir(GetResourceFolder());
-	const bool aHasGameResources = !aResourceDir.empty() &&
-		std::filesystem::is_regular_file(aResourceDir / "main.pak") &&
-		std::filesystem::is_directory(aResourceDir / "properties");
-	if (!aHasGameResources)
+	// Never write instructions into the read-only application bundle.
+	const char* aHome = std::getenv("HOME");
+	if (aHome != nullptr && aHome[0] != '\0')
 	{
-		const std::filesystem::path aReadmePath = aResourceDir / "README.txt";
-		if (!aResourceDir.empty() && !std::filesystem::exists(aReadmePath))
+		const auto aReadmePath = std::filesystem::path(aHome) / "Documents" / "README.txt";
+		std::error_code aErrorCode;
+		if (!std::filesystem::exists(aReadmePath, aErrorCode))
 			std::ofstream(aReadmePath, std::ios::out | std::ios::trunc)
-				<< "Place your `main.pak` and `properties/` folder here to play the game.\n";
+				<< "For an app without bundled resources, place main.pak here.\n"
+				<< "External properties/ files are needed only when absent from the PAK.\n";
 	}
 	std::string aMessage =
-		"Please place main.pak and the properties/ folder into the "
-		"PvZ Portable folder using the Files app or Finder/iTunes file sharing.";
+		"Game resources could not be loaded. For a bundled-resource edition, "
+		"reinstall the complete WanZi Family package. For an edition without "
+		"bundled resources, import main.pak into WanZi Family using file sharing. "
+		"External properties/ files are needed only when absent from the PAK.";
 	if (!aError.empty())
 		aMessage += "\n\n(" + aError + ")";
 #else
