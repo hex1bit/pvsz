@@ -8,7 +8,8 @@
 - 外观：深绿色半透明铭牌、金色描边，版本号与编号作为第二行。
 - 标识定义：src/EditionBranding.h。
 - 绘制实现：src/EditionBranding.cpp。
-- Windows 使用本机微软雅黑绘制定制名称，避免原版位图字体缺少“丸”字；字体不会随程序分发。
+- 定制名称与启动文字使用嵌入代码的固定文字位图，Windows、iPhone、iPad 共用，不依赖运行设备的系统字体。原版字体文件不变。
+- 固定文字数据：src/EditionBrandingAssets.h；需要更名时，在 Windows 上运行 scripts/windows/Generate-Branding.ps1 重新生成。
 - 标识代表本地定制分支，不改变原版及上游的版权归属。
 
-Release 构建通过。窗口标题与主菜单的初次验证发现缺字，已改为系统字体后重新构建。最终视图验证结果见 STATUS.zh-CN.md。
+Windows Release 构建通过。iOS 构建与安装说明见 IOS.zh-CN.md；编译通过不代表已经完成苹果设备上的试玩验证。

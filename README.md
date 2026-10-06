@@ -121,16 +121,16 @@ Long-press the app icon on your launcher to access the **Manage Data** shortcut,
 
 ### Special Instructions for iOS / iPadOS
 
-Download the unsigned IPA from the [Releases](https://github.com/wszqkzqk/PvZ-Portable/releases) page or build it yourself with `ios/build-ios.sh`. The IPA must be sideloaded — common methods include [AltStore](https://altstore.io/), [TrollStore](https://github.com/opa334/TrollStore), or deploying directly from Xcode with a free Apple ID.
+For this customized fork, run [Build iOS](https://github.com/hex1bit/pvsz/actions/workflows/ios.yml) and download the `wanzi-family-ios-unsigned` artifact, or build on a Mac with `bash ios/build-ios.sh Release`. The IPA needs Apple signing/provisioning before installation. See [中文构建与安装说明](docs/IOS.zh-CN.md).
 
 #### Importing Game Resources
 
-The app's Documents folder is exposed via iTunes/Finder file sharing and the iOS Files app (`UIFileSharingEnabled`). Place `main.pak` and the `properties/` folder directly into the app's Documents directory (shown as "PvZ Portable" in the Files app).
+The app's Documents folder is exposed via device file sharing and the iOS Files app (`UIFileSharingEnabled`). Place your own `main.pak` directly into the app's Documents directory (shown as "WanZi Family"). External `properties/` files are needed only if they are absent from your PAK. Original game resources are not included in the IPA.
 
 #### Notes
 
 - Requires iOS 16.4+ (arm64).
-- Free Apple ID signatures expire after 7 days; TrollStore installs are permanent.
+- Free Personal Team provisioning has a limited lifetime and requires renewal.
 - Same touch-to-mouse mapping and aspect ratio behavior as the Android port.
 
 ### Play in Your Browser (WebAssembly)
